@@ -1,0 +1,60 @@
+.team-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 60px 0;
+  overflow-x: hidden;
+}
+
+.team-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 2%;
+}
+
+.team-grid-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  padding: 20px 0;
+}
+
+@media (max-width: 1200px) {
+  .team-container {
+    padding: 0 3%;
+  }
+}
+
+@media (max-width: 768px) {
+  .team-page {
+    padding: 40px 0;
+  }
+  
+  .team-container {
+    padding: 0 2%;
+  }
+  
+  .team-grid-wrapper {
+    min-height: 500px;
+    padding: 15px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-page {
+    padding: 30px 0;
+  }
+  
+  .team-container {
+    padding: 0 1.5%;
+  }
+  
+  .team-grid-wrapper {
+    min-height: 400px;
+    padding: 10px 0;
+  }
+}

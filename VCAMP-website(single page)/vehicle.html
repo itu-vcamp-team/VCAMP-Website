@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCAMP-26 | SUAS 2026</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body class="docs-page-body">
+
+    <!-- Back Button -->
+    <a href="projects.html" class="back-button" style="top: 20px; left: 40px;">
+        <i class="fas fa-arrow-left"></i>
+        <span>Projects</span>
+    </a>
+
+    <div class="docs-wrapper">
+
+        <!-- Professional Sidebar -->
+        <aside class="docs-sidebar">
+            <h3 class="docs-menu-header">Documentation</h3>
+            <nav class="docs-nav-menu">
+                <a href="#overview" class="docs-nav-item active">System Overview</a>
+                <a href="#airframe" class="docs-nav-item">Airframe Design</a>
+                <a href="#avionics" class="docs-nav-item">Avionics Architecture</a>
+                <a href="#performance" class="docs-nav-item">Performance Logs</a>
+                <a href="#media" class="docs-nav-item">Media Gallery</a>
+            </nav>
+
+            <div class="specs-box">
+                <h3 class="docs-menu-header" style="margin-bottom: 16px;">System Specs</h3>
+                <div class="spec-row">
+                    <span class="spec-label">MTOW</span>
+                    <span class="spec-value">4.5 kg</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Wingspan</span>
+                    <span class="spec-value">1.8 m</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Endurance</span>
+                    <span class="spec-value">55 min</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Range</span>
+                    <span class="spec-value">22 km</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Link</span>
+                    <span class="spec-value">RFD900x</span>
+                </div>
+                <!-- Status Dot -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 16px;">
+                    <div
+                        style="width: 8px; height: 8px; background: #10B981; border-radius: 50%; box-shadow: 0 0 8px #10B981;">
+                    </div>
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #10B981;">Flight Ready</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content">
+
+            <!-- System Overview -->
+            <section id="overview" style="margin-bottom: 100px;">
+                <h1 class="doc-title">VCAMP-26</h1>
+                <p class="doc-subtitle">
+                    A hybrid VTOL platform engineered for autonomous surveillance and precision payload delivery in
+                    complex environments.
+                </p>
+
+                <div class="tech-hero-img-container"
+                    style="height: 500px; margin-bottom: 40px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="assets/vehicle-hero.png" alt="VCAMP-26 Vehicle"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <div class="doc-grid">
+                    <div class="doc-card full-width">
+                        <i class="fas fa-crosshairs card-icon"></i>
+                        <h3 class="card-title">Mission Profile</h3>
+                        <p class="card-text">
+                            Developed specifically for the SUAS 2026 challenge, the VCAMP-26 employs a QuadPlane
+                            configuration to eliminate runway dependencies while maintaining fixed-wing cruise
+                            efficiency. The system is capable of fully autonomous waypoint navigation, dynamic obstacle
+                            avoidance, and AI-driven object detection.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Airframe Design -->
+            <section id="airframe" style="margin-bottom: 100px;">
+                <h2 class="section-title">Airframe Design</h2>
+
+                <div class="doc-grid">
+                    <div class="doc-card">
+                        <i class="fas fa-wind card-icon"></i>
+                        <h3 class="card-title">Aerodynamic Optimization</h3>
+                        <p class="card-text">
+                            The airframe utilizes a high-lift Eppler 387 airfoil profile, selected for its efficient L/D
+                            ratio at varying Reynolds numbers. Computational Fluid Dynamics (CFD) analysis confirms a
+                            15% drag reduction compared to standard Clark-Y profiles.
+                        </p>
+                    </div>
+                    <div class="doc-card">
+                        <i class="fas fa-cubes card-icon"></i>
+                        <h3 class="card-title">Composite Construction</h3>
+                        <p class="card-text">
+                            Structural rigidity is achieved through a hybrid layup of 3K carbon fiber and EPP foam core.
+                            This ensures structural integrity under high-G maneuvers (tested up to 4G) while maintaining
+                            a lightweight profile for extended endurance.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Avionics -->
+            <section id="avionics" style="margin-bottom: 100px;">
+                <h2 class="section-title">Avionics Architecture</h2>
+
+                <div
+                    style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 40px; margin-bottom: 40px;">
+                    <h3 class="docs-menu-header" style="color: var(--white); margin-bottom: 20px;">Compute Stack</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+                        <div>
+                            <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">
+                                Flight Controller: Pixhawk 6C</h4>
+                            <p class="card-text">
+                                Responsible for low-level stabilization, motor mixing, and sensor fusion (EKF3). Runs
+                                ArduPilot firmware with custom Lua scripts for failsafe logic.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">
+                                Mission Computer: Jetson Orin Nano</h4>
+                            <p class="card-text">
+                                Handles high-level autonomy, including AI object detection (YOLOv8), path planning, and
+                                inter-vehicle communication. Connected via UART/Mavlink.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Log -->
+            <section id="performance" style="margin-bottom: 100px;">
+                <h2 class="section-title">Performance Logs</h2>
+
+                <div class="doc-card full-width">
+                    <div
+                        style="display: flex; gap: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 24px; margin-bottom: 24px;">
+                        <div style="font-family: var(--font-mono); color: var(--gray-500); width: 140px;">TEST FLIGHT
+                            #04</div>
+                        <div>
+                            <h4 style="color: var(--white); margin-bottom: 4px;">Transition & Cruise Validation</h4>
+                            <p class="card-text" style="font-size: 0.9rem;">
+                                Successful hover-to-forward-flight transition at 12 m/s. Cruise current confirmed at 8A,
+                                aligning with theoretical models. Rudder authority verified in crosswind conditions.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 24px;">
+                        <div style="font-family: var(--font-mono); color: var(--gray-500); width: 140px;">TEST FLIGHT
+                            #03</div>
+                        <div>
+                            <h4 style="color: var(--white); margin-bottom: 4px;">Payload Drop Mechanism</h4>
+                            <p class="card-text" style="font-size: 0.9rem;">
+                                Automated winch system tested at 50m AGL. GPS guided drop accuracy within 2m radius of
+                                target.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Media -->
+            <section id="media">
+                <h2 class="section-title">Media Gallery</h2>
+                <div class="media-gallery">
+                    <div class="media-frame">
+                        <img src="https://images.unsplash.com/photo-1579890986940-272da64ba62b?q=80&w=1600&auto=format&fit=crop"
+                            alt="Flight Test">
+                    </div>
+                    <div class="media-frame">
+                        <img src="https://images.unsplash.com/photo-1542759530-ac87e14881ae?w=800&q=80"
+                            alt="Telemetry Data">
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // ScrollSpy Implementation
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.docs-nav-item');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        // Remove active class from all
+                        navItems.forEach(item => item.classList.remove('active'));
+                        // Add active class to current
+                        const currentLink = document.querySelector(`.docs-nav-item[href="#${id}"]`);
+                        if (currentLink) currentLink.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+
+</html>

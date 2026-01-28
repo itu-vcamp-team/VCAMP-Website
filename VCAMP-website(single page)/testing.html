@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing & Procedures | ITU VCAMP</title>
+    <meta name="description" content="ITU VCAMP SUAS 26 Testing & Procedures - Test procedures, results, safety protocols, and system validation.">
+    <meta name="keywords" content="SUAS 26, testing, procedures, safety, validation, ITU VCAMP">
+    <meta property="og:title" content="Testing & Procedures | ITU VCAMP">
+    <meta property="og:description" content="ITU VCAMP SUAS 26 Testing & Procedures">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body class="page-body" data-title-key="testingTitle">
+    <!-- Language Toggle -->
+    <button id="langToggle" class="lang-toggle" aria-label="Toggle language">
+        <span class="lang-code">EN</span>
+    </button>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span data-i18n="backToHome">Back to Home</span>
+    </a>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-content">
+            <span class="section-number">07</span>
+            <h1 class="page-title" data-i18n="testingTitle">Testing & Procedures</h1>
+            <div class="page-line"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-main">
+        <!-- Test Procedures -->
+        <section class="test-procedures" style="margin-bottom: 80px;">
+            <h2 class="section-subtitle" data-i18n="testProcedures">Test Procedures</h2>
+            
+            <div class="procedures-list" style="display: grid; gap: 40px;">
+                <!-- Procedure 1 -->
+                <div class="procedure-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--gray-800); border-radius: 16px; padding: 40px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--white); margin-bottom: 15px;">Pre-Flight Checklist</h3>
+                    <p style="color: var(--gray-400); line-height: 1.8; margin-bottom: 25px;">
+                        Comprehensive checklist to be completed before every flight to ensure safety and proper operation.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Visual inspection of airframe</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Battery voltage check (>16.0V)</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Control surface verification</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">GPS lock confirmation (8+ satellites)</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Communication link test</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Payload system check</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Emergency stop system test</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Weather condition assessment</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; aspect-ratio: 16/9; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; position: relative;">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Pre-Flight Checklist" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);">
+                            <i class="fas fa-clipboard-check" style="font-size: 3rem; color: var(--gray-600);"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Procedure 2 -->
+                <div class="procedure-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--gray-800); border-radius: 16px; padding: 40px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--white); margin-bottom: 15px;">Sensor Calibration</h3>
+                    <p style="color: var(--gray-400); line-height: 1.8; margin-bottom: 25px;">
+                        Procedure for calibrating all onboard sensors to ensure accurate readings and reliable operation.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-compass" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">IMU calibration on level surface</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-sync" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Compass calibration (360° rotation)</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-tachometer-alt" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Barometer calibration at known altitude</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-satellite" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">GPS accuracy verification</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-camera" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Camera gimbal calibration</span>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-database" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400); font-size: 0.9rem;">Data logging verification</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; aspect-ratio: 16/9; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; position: relative;">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Pre-Flight Checklist" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);">
+                            <i class="fas fa-clipboard-check" style="font-size: 3rem; color: var(--gray-600);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test Results -->
+        <section class="test-results" style="margin-bottom: 80px;">
+            <h2 class="section-subtitle" data-i18n="testResults">Test Results</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+                <!-- Flight Tests -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--gray-800); border-radius: 16px; padding: 40px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.3rem; color: var(--white); margin-bottom: 25px;">Flight Tests</h3>
+                    <div style="display: grid; gap: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">Maximum Flight Time</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">42 min</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Exceeded</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">Maximum Speed</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">82 km/h</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Exceeded</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">Waypoint Accuracy</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">±2.5m</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Exceeded</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">Payload Capacity</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">520g</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Exceeded</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">Communication Range</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">8.5 km</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Exceeded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Tests -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--gray-800); border-radius: 16px; padding: 40px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.3rem; color: var(--white); margin-bottom: 25px;">System Tests</h3>
+                    <div style="display: grid; gap: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">Autopilot Response</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">12ms</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Passed</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">GPS Accuracy</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">±1.2m</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Exceeded</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">Battery Efficiency</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">85%</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Exceeded</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; border-left: 3px solid #10B981;">
+                            <span style="color: var(--gray-400);">Image Latency</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-family: var(--font-display); color: var(--white); font-weight: 700;">120ms</span>
+                                <span style="font-size: 0.75rem; color: #10B981;">✓ Exceeded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safety Protocols -->
+        <section class="safety-protocols" style="margin-bottom: 80px;">
+            <h2 class="section-subtitle" data-i18n="safetyProtocols">Safety Protocols</h2>
+            
+            <div style="display: grid; gap: 30px;">
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--gray-800); border-radius: 16px; padding: 40px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.3rem; color: var(--white); margin-bottom: 20px;">
+                        <i class="fas fa-exclamation-triangle" style="margin-right: 10px; color: var(--gray-500);"></i>
+                        Emergency Procedures
+                    </h3>
+                    <p style="color: var(--gray-400); line-height: 1.8; margin-bottom: 20px;">
+                        Protocols for handling emergency situations during flight operations.
+                    </p>
+                    <ul style="list-style: none; padding: 0; display: grid; gap: 15px;">
+                        <li style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-arrow-right" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400);">Immediate activation of return-to-home</span>
+                        </li>
+                        <li style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-arrow-right" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400);">Communication with ground control</span>
+                        </li>
+                        <li style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-arrow-right" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400);">Assessment of situation</span>
+                        </li>
+                        <li style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-arrow-right" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400);">Decision on landing location</span>
+                        </li>
+                        <li style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-arrow-right" style="color: var(--gray-500);"></i>
+                            <span style="color: var(--gray-400);">Post-flight inspection</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--gray-800); border-radius: 16px; padding: 40px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.3rem; color: var(--white); margin-bottom: 20px;">
+                        <i class="fas fa-cloud-sun" style="margin-right: 10px; color: var(--gray-500);"></i>
+                        Weather Limitations
+                    </h3>
+                    <p style="color: var(--gray-400); line-height: 1.8; margin-bottom: 20px;">
+                        Flight restrictions based on weather conditions to ensure safe operations.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px;">
+                            <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--gray-500); margin-bottom: 5px;">Max Wind Speed</div>
+                            <div style="font-family: var(--font-display); color: var(--white); font-weight: 700;">25 km/h</div>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px;">
+                            <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--gray-500); margin-bottom: 5px;">Precipitation</div>
+                            <div style="font-family: var(--font-display); color: var(--white); font-weight: 700;">No flight</div>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px;">
+                            <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--gray-500); margin-bottom: 5px;">Min Visibility</div>
+                            <div style="font-family: var(--font-display); color: var(--white); font-weight: 700;">1 km</div>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px;">
+                            <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--gray-500); margin-bottom: 5px;">Temperature</div>
+                            <div style="font-family: var(--font-display); color: var(--white); font-weight: 700;">-10°C to 40°C</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="footer-content">
+            <p data-i18n="footerText">© 2026 ITU VCAMP. Vision • Community • And • Making • Project</p>
+        </div>
+    </footer>
+
+    <script src="js/mockData.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/search.js"></script>
+<script src="script.js"></script></body>
+
+</html>

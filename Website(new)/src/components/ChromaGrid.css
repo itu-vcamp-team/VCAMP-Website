@@ -1,0 +1,315 @@
+.chroma-grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  grid-auto-rows: auto;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  box-sizing: border-box;
+
+  --x: 50%;
+  --y: 50%;
+  --r: 220px;
+}
+
+.chroma-grid.horizontal-scroll {
+  grid-auto-flow: column;
+  grid-auto-columns: 320px;
+  grid-template-columns: none;
+  justify-content: start;
+  gap: 1.5rem;
+  max-width: none;
+  overflow-x: visible;
+  overflow-y: visible;
+}
+
+/* Masked "color" layer that follows the cursor.
+   This is what makes the spotlight affect multiple cards at once. */
+.chroma-color-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  grid-auto-rows: auto;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 2;
+
+  -webkit-mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 40%,
+    rgba(0, 0, 0, 0.85) 55%,
+    rgba(0, 0, 0, 0.5) 70%,
+    rgba(0, 0, 0, 0.2) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 40%,
+    rgba(0, 0, 0, 0.85) 55%,
+    rgba(0, 0, 0, 0.5) 70%,
+    rgba(0, 0, 0, 0.2) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.chroma-grid.horizontal-scroll .chroma-color-layer {
+  grid-auto-flow: column;
+  grid-auto-columns: 320px;
+  grid-template-columns: none;
+  justify-content: start;
+  gap: 1.5rem;
+  max-width: none;
+  overflow: visible;
+}
+
+@media (max-width: 1124px) {
+  .chroma-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .chroma-grid.horizontal-scroll {
+    grid-auto-columns: 300px;
+    gap: 1rem;
+  }
+
+  .chroma-color-layer {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .chroma-grid.horizontal-scroll .chroma-color-layer {
+    grid-auto-columns: 300px;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chroma-grid {
+    grid-template-columns: 320px;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  
+  .chroma-grid.horizontal-scroll {
+    grid-auto-columns: 280px;
+    gap: 1rem;
+  }
+
+  .chroma-color-layer {
+    grid-template-columns: 320px;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .chroma-grid.horizontal-scroll .chroma-color-layer {
+    grid-auto-columns: 280px;
+    gap: 1rem;
+  }
+}
+
+.chroma-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  min-height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #333;
+  flex-shrink: 0;
+  transition: border-color 0.25s ease;
+}
+
+/* Base (dim) cards */
+.chroma-card--base {
+  background: #2f2f2f;
+  opacity: 0.9;
+  filter: grayscale(0.2) brightness(0.95);
+}
+
+/* Color (revealed by spotlight mask) */
+.chroma-card--color {
+  background: #ffffff;
+  opacity: 1;
+  filter: none;
+  border-color: var(--card-border, rgba(255, 255, 255, 0.3));
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 
+              0 0 40px var(--card-border, rgba(255, 255, 255, 0.15)),
+              0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.chroma-img-wrapper {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding: 12px;
+  box-sizing: border-box;
+  background: transparent;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chroma-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.chroma-info {
+  position: relative;
+  z-index: 1;
+  padding: 0.6rem 0.8rem;
+  font-family: system-ui, sans-serif;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  row-gap: 0.2rem;
+  column-gap: 0.6rem;
+  font-size: 0.9rem;
+}
+
+/* Base layer text */
+.chroma-card--base .chroma-info {
+  color: #eaeaea;
+}
+
+.chroma-info .name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.chroma-info .role,
+.chroma-info .handle {
+  color: #aaaaaa;
+  font-size: 0.8rem;
+}
+
+.chroma-card--color .chroma-info {
+  color: #0b0b0b;
+}
+
+.chroma-card--color .chroma-info .role,
+.chroma-card--color .chroma-info .handle {
+  color: #5f5f5f;
+  font-size: 0.8rem;
+}
+
+.chroma-linkedin-link {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: #0077b5;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 6px;
+}
+
+.chroma-linkedin-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  color: #005885;
+}
+
+.chroma-card--color .chroma-linkedin-link {
+  color: #0077b5;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.chroma-card--color .chroma-linkedin-link:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.chroma-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  backdrop-filter: grayscale(1) brightness(0.78);
+  -webkit-backdrop-filter: grayscale(1) brightness(0.78);
+  background: rgba(0, 0, 0, 0.001);
+
+  mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    transparent 0%,
+    transparent 15%,
+    rgba(0, 0, 0, 0.1) 30%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.68) 88%,
+    white 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    transparent 0%,
+    transparent 15%,
+    rgba(0, 0, 0, 0.1) 30%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.68) 88%,
+    white 100%
+  );
+}
+
+.chroma-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  backdrop-filter: grayscale(1) brightness(0.78);
+  -webkit-backdrop-filter: grayscale(1) brightness(0.78);
+  background: rgba(0, 0, 0, 0.001);
+
+  mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    white 0%,
+    white 15%,
+    rgba(255, 255, 255, 0.9) 30%,
+    rgba(255, 255, 255, 0.78) 45%,
+    rgba(255, 255, 255, 0.65) 60%,
+    rgba(255, 255, 255, 0.5) 75%,
+    rgba(255, 255, 255, 0.32) 88%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    white 0%,
+    white 15%,
+    rgba(255, 255, 255, 0.9) 30%,
+    rgba(255, 255, 255, 0.78) 45%,
+    rgba(255, 255, 255, 0.65) 60%,
+    rgba(255, 255, 255, 0.5) 75%,
+    rgba(255, 255, 255, 0.32) 88%,
+    transparent 100%
+  );
+
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}

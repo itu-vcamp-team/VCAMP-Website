@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITU VCAMP | Vision • Community • And • Making • Project</title>
+    <meta name="description"
+        content="İTÜ VCAMP - İstanbul Teknik Üniversitesi'nin en inovatif girişimcilik takımı. Vision, Community and Making Project.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Galaxy Background -->
+    <div id="galaxy-background"></div>
+
+    <!-- Audio Controls -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Sound Toggle -->
+    <button id="soundToggle" class="sound-toggle" aria-label="Toggle Sound">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <!-- Target Cursor -->
+    <div class="target-cursor-wrapper spinning" id="targetCursor">
+        <div class="target-cursor-dot"></div>
+        <div class="target-cursor-corner corner-tl"></div>
+        <div class="target-cursor-corner corner-tr"></div>
+        <div class="target-cursor-corner corner-br"></div>
+        <div class="target-cursor-corner corner-bl"></div>
+    </div>
+
+    <!-- Logo Splash Screen -->
+    <div id="logoSplash" class="logo-splash">
+        <div class="logo-container">
+            <img src="logo.svg" alt="VCAMP Logo" class="splash-logo" id="splashLogo">
+            <div class="logo-glow"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section - Fullscreen Landing -->
+    <section id="hero" class="hero-section">
+        <div class="hero-bg">
+            <div class="grid-lines"></div>
+            <div class="particles" id="particles"></div>
+        </div>
+
+        <div class="hero-layout">
+            <!-- Left Side - VCAMP Vertical with Horizontal Expansions -->
+            <div class="vcamp-container">
+                <div class="vcamp-stack">
+                    <div class="letter-row" data-index="0">
+                        <span class="main-letter">V</span>
+                        <div class="expansion-horizontal">
+                            <span>I</span><span>S</span><span>I</span><span>O</span><span>N</span>
+                        </div>
+                    </div>
+                    <div class="letter-row" data-index="1">
+                        <span class="main-letter">C</span>
+                        <div class="expansion-horizontal">
+                            <span>O</span><span>M</span><span>M</span><span>U</span><span>N</span><span>I</span><span>T</span><span>Y</span>
+                        </div>
+                    </div>
+                    <div class="letter-row" data-index="2">
+                        <span class="main-letter">A</span>
+                        <div class="expansion-horizontal">
+                            <span>N</span><span>D</span>
+                        </div>
+                    </div>
+                    <div class="letter-row" data-index="3">
+                        <span class="main-letter">M</span>
+                        <div class="expansion-horizontal">
+                            <span>A</span><span>K</span><span>I</span><span>N</span><span>G</span>
+                        </div>
+                    </div>
+                    <div class="letter-row" data-index="4">
+                        <span class="main-letter">P</span>
+                        <div class="expansion-horizontal">
+                            <span>R</span><span>O</span><span>J</span><span>E</span><span>C</span><span>T</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tagline">
+                    <span>İTÜ Girişimcilik Takımı</span>
+                </div>
+            </div>
+
+            <!-- Right Side - Navigation (appears after animation) -->
+            <nav class="hero-nav" id="heroNav">
+                <div class="nav-items">
+                    <a href="about.html" class="hero-nav-link" data-index="0">
+                        <span class="nav-number">01</span>
+                        <span class="nav-text">Hakkımızda</span>
+                    </a>
+                    <a href="team.html" class="hero-nav-link" data-index="1">
+                        <span class="nav-number">02</span>
+                        <span class="nav-text">Ekibimiz</span>
+                    </a>
+                    <a href="projects.html" class="hero-nav-link" data-index="2">
+                        <span class="nav-number">03</span>
+                        <span class="nav-text">Projeler</span>
+                    </a>
+                    <a href="achievements.html" class="hero-nav-link" data-index="3">
+                        <span class="nav-number">04</span>
+                        <span class="nav-text">Başarılar</span>
+                    </a>
+                    <a href="contact.html" class="hero-nav-link" data-index="4">
+                        <span class="nav-number">05</span>
+                        <span class="nav-text">İletişim</span>
+                    </a>
+                </div>
+
+                <div class="social-bar">
+                    <a href="https://www.instagram.com/ituvcamp/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/ituvcamp/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:vcampteam@itu.edu.tr"><i class="fas fa-envelope"></i></a>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <script src="script.js"></script>
+    <script type="module">
+        import { GalaxyBackground } from './galaxy.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new GalaxyBackground('galaxy-background', {
+                mouseInteraction: false,
+                transparent: true,
+                starSpeed: 0.3,
+                density: 1.2,
+                mouseRepulsion: false,
+                autoCenterRepulsion: 2
+            });
+        });
+    </script>
+</body>
+
+</html>

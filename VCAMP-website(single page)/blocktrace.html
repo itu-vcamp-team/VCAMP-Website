@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockTrace | Supply Chain Ledger</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body class="docs-page-body">
+
+    <!-- Back Button -->
+    <a href="projects.html" class="back-button" style="top: 20px; left: 40px;">
+        <i class="fas fa-arrow-left"></i>
+        <span>Projects</span>
+    </a>
+
+    <div class="docs-wrapper">
+
+        <!-- Professional Sidebar -->
+        <aside class="docs-sidebar">
+            <h3 class="docs-menu-header">Documentation</h3>
+            <nav class="docs-nav-menu">
+                <a href="#overview" class="docs-nav-item active">Protocol Overview</a>
+                <a href="#consensus" class="docs-nav-item">Proof of Delivery</a>
+                <a href="#contracts" class="docs-nav-item">Smart Contracts</a>
+                <a href="#security" class="docs-nav-item">Security Analysis</a>
+            </nav>
+
+            <div class="specs-box">
+                <h3 class="docs-menu-header" style="margin-bottom: 16px;">Network Specs</h3>
+                <div class="spec-row">
+                    <span class="spec-label">Network</span>
+                    <span class="spec-value">Polygon zkEVM</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">TPS</span>
+                    <span class="spec-value">2,000+</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Finality</span>
+                    <span class="spec-value">~2s</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Contract</span>
+                    <span class="spec-value">ERC-721 Ext</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Validation</span>
+                    <span class="spec-value">Proximity</span>
+                </div>
+                <!-- Status Dot -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 16px;">
+                    <div
+                        style="width: 8px; height: 8px; background: #eab308; border-radius: 50%; box-shadow: 0 0 8px #eab308;">
+                    </div>
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #eab308;">Testnet Live</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content">
+
+            <!-- Protocol Overview -->
+            <section id="overview" style="margin-bottom: 100px;">
+                <h1 class="doc-title">BlockTrace Protocol</h1>
+                <p class="doc-subtitle">
+                    A decentralized ledger for autonomous supply chain verification, ensuring immutable custody transfer
+                    from origin to destination.
+                </p>
+
+                <div class="tech-hero-img-container"
+                    style="height: 500px; margin-bottom: 40px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="assets/blocktrace-hero.png" alt="Blockchain Network"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <div class="doc-grid">
+                    <div class="doc-card full-width">
+                        <i class="fas fa-link card-icon"></i>
+                        <h3 class="card-title">Trustless Verification</h3>
+                        <p class="card-text">
+                            BlockTrace replaces traditional trust mechanisms with cryptographic proofs. By hashing
+                            telemetry data (GPS, timestamp, and inertial signatures) onto the blockchain, we create an
+                            unalterable audit trail for every autonomous delivery mission. This ensures that neither the
+                            operator nor the recipient can dispute the successful completion of a delivery.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Consensus -->
+            <section id="consensus" style="margin-bottom: 100px;">
+                <h2 class="section-title">Proof of Delivery (PoD)</h2>
+
+                <div class="doc-grid">
+                    <div class="doc-card" style="grid-column: span 2;">
+                        <i class="fas fa-fingerprint card-icon"></i>
+                        <h3 class="card-title">Cryptographic Handshake</h3>
+                        <p class="card-text">
+                            The Proof of Delivery (PoD) mechanism utilizes a multi-factor authentication handshake. When
+                            the drone (Prover) arrives at the geofenced delivery zone, it broadcasts a cryptographic
+                            challenge via NFC or local RF. The recipient (Verifier) signs this challenge with their
+                            private key. This signed payload is then submitted to the smart contract as undeniable proof
+                            of receipt.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Smart Contracts -->
+            <section id="contracts" style="margin-bottom: 100px;">
+                <h2 class="section-title">Smart Contract Architecture</h2>
+
+                <div
+                    style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 40px; margin-bottom: 40px;">
+                    <h3 class="docs-menu-header" style="color: var(--white); margin-bottom: 20px;">Logic Flow</h3>
+
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">1. Escrow
+                            Initialization</h4>
+                        <p class="card-text">Sender deposits payment tokens into the `MissionEscrow` contract. Funds are
+                            locked.</p>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">2.
+                            Telemetry Oracles</h4>
+                        <p class="card-text">Chainlink oracles feed real-time flight data to the contract, validating
+                            that the drone remains within the designated flight corridor.</p>
+                    </div>
+
+                    <div>
+                        <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">3.
+                            Settlement</h4>
+                        <p class="card-text">Upon successful PoD verification, the contract atomically releases funds to
+                            the operator and transfers the "Package NFT" ownership to the recipient.</p>
+                    </div>
+                </div>
+
+                <!-- Code Snippet -->
+                <div
+                    style="background: #0f1115; border-radius: 12px; padding: 24px; border: 1px solid rgba(255,255,255,0.1); overflow-x: auto;">
+                    <pre style="font-family: var(--font-mono); color: #a5b3ce; font-size: 0.9rem; margin: 0;">
+<span style="color: #c678dd;">function</span> <span style="color: #61afef;">finalizeDelivery</span>(bytes32 missionId, bytes memory signature) <span style="color: #c678dd;">external</span> {
+    Mission <span style="color: #c678dd;">storage</span> m = missions[missionId];
+    
+    <span style="color: #5c6370;">// Verify Recipient Signature</span>
+    <span style="color: #c678dd;">address</span> signer = ECDSA.<span style="color: #61afef;">recover</span>(m.deliveryHash, signature);
+    <span style="color: #c678dd;">require</span>(signer == m.recipient, <span style="color: #98c379;">"Invalid Recipient Auth"</span>);
+    
+    <span style="color: #5c6370;">// Transfer Assets</span>
+    token.<span style="color: #61afef;">transfer</span>(operator, m.bounty);
+    nft.<span style="color: #61afef;">safeTransferFrom</span>(address(<span style="color: #d19a66;">this</span>), m.recipient, m.tokenId);
+    
+    emit <span style="color: #e5c07b;">DeliveryConfirmed</span>(missionId, block.timestamp);
+}</pre>
+                </div>
+            </section>
+
+            <!-- Security -->
+            <section id="security">
+                <h2 class="section-title">Security Analysis</h2>
+                <div class="doc-grid">
+                    <div class="doc-card">
+                        <h3 class="card-title">Sybil Resistance</h3>
+                        <p class="card-text">
+                            To prevent spoofing of delivery drones, each unit holds a hardcoded Hardware Security Module
+                            (HSM) private key that cannot be extracted.
+                        </p>
+                    </div>
+                    <div class="doc-card">
+                        <h3 class="card-title">Replay Protection</h3>
+                        <p class="card-text">
+                            All PoD handshakes include a monotonically increasing nonce and a precise GPS timestamp
+                            window (±5s) to prevent replay attacks.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.docs-nav-item');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navItems.forEach(item => item.classList.remove('active'));
+                        const currentLink = document.querySelector(`.docs-nav-item[href="#${id}"]`);
+                        if (currentLink) currentLink.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+
+</html>

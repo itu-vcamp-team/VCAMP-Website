@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+# Bu workflow sadece main branch'e push edildiğinde otomatik çalışır
+on:
+  push:
+    branches:
+      - main  # Sadece main branch'te push/merge olduğunda tetiklenir
+  workflow_dispatch:  # Manuel tetikleme için (opsiyonel)
+
+# GitHub Pages'e yazma izni için permissions gerekli
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    # Sadece main branch'te çalıştığından emin ol (ekstra güvenlik)
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Tüm git history'yi çek
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'Website(new)/package-lock.json'
+      
+      - name: Install dependencies
+        working-directory: ./Website(new)
+        run: npm ci
+      
+      - name: Build project
+        working-directory: ./Website(new)
+        run: npm run build
+        env:
+          CI: false  # Create React App'in CI modunu devre dışı bırak
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./Website(new)/build
+          cname: false  # Custom domain kullanmıyorsanız false
+          force_orphan: true  # Her deploy'da temiz branch oluştur

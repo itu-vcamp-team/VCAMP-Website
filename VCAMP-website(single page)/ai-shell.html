@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Shell Agent | Edge LLM</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body class="docs-page-body">
+
+    <!-- Back Button -->
+    <a href="projects.html" class="back-button" style="top: 20px; left: 40px;">
+        <i class="fas fa-arrow-left"></i>
+        <span>Projects</span>
+    </a>
+
+    <div class="docs-wrapper">
+
+        <!-- Professional Sidebar -->
+        <aside class="docs-sidebar">
+            <h3 class="docs-menu-header">Documentation</h3>
+            <nav class="docs-nav-menu">
+                <a href="#overview" class="docs-nav-item active">Core Architecture</a>
+                <a href="#pipeline" class="docs-nav-item">Data Pipeline</a>
+                <a href="#inference" class="docs-nav-item">Inference Engine</a>
+                <a href="#benchmarks" class="docs-nav-item">Benchmark Results</a>
+                <a href="#devlog" class="docs-nav-item">Development Logs</a>
+            </nav>
+
+            <div class="specs-box">
+                <h3 class="docs-menu-header" style="margin-bottom: 16px;">Model Specs</h3>
+                <div class="spec-row">
+                    <span class="spec-label">Base Model</span>
+                    <span class="spec-value">Llama-3-8B</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Quantization</span>
+                    <span class="spec-value">AWQ 4-bit</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Context</span>
+                    <span class="spec-value">8k Tokens</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Latency</span>
+                    <span class="spec-value">
+                        < 200ms</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Hardware</span>
+                    <span class="spec-value">Jetson Orin</span>
+                </div>
+                <!-- Status Dot -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 16px;">
+                    <div
+                        style="width: 8px; height: 8px; background: #3B82F6; border-radius: 50%; box-shadow: 0 0 8px #3B82F6;">
+                    </div>
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #3B82F6;">Deployment
+                        Active</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content">
+
+            <!-- Core Architecture -->
+            <section id="overview" style="margin-bottom: 100px;">
+                <h1 class="doc-title">AI Shell Agent</h1>
+                <p class="doc-subtitle">
+                    Edge-native Large Language Model optimized for real-time autonomous decision making and natural
+                    language command processing.
+                </p>
+
+                <div class="tech-hero-img-container"
+                    style="height: 500px; margin-bottom: 40px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="assets/ai-shell-hero.png" alt="AI Interface"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <div class="doc-grid">
+                    <div class="doc-card full-width">
+                        <i class="fas fa-microchip card-icon"></i>
+                        <h3 class="card-title">Localized Intelligence</h3>
+                        <p class="card-text">
+                            Unlike cloud-dependent solutions, the AI Shell Agent operates entirely on-board. This
+                            ensures zero-latency command execution and operational security in RF-denied environments.
+                            By leveraging TensorRT-LLM, we achieve cloud-grade instruction following on embedded
+                            hardware.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pipeline -->
+            <section id="pipeline" style="margin-bottom: 100px;">
+                <h2 class="section-title">Data Pipeline</h2>
+
+                <div class="doc-grid">
+                    <div class="doc-card">
+                        <i class="fas fa-wave-square card-icon"></i>
+                        <h3 class="card-title">Signal Processing</h3>
+                        <p class="card-text">
+                            Audio input is pre-processed using a minimal Noise Gate filter before being passed to the
+                            Whisper-v3-turbo model for transcription. This pipeline ensures distinct separation of voice
+                            commands from ambient rotor noise.
+                        </p>
+                    </div>
+                    <div class="doc-card">
+                        <i class="fas fa-code-branch card-icon"></i>
+                        <h3 class="card-title">Function Calling</h3>
+                        <p class="card-text">
+                            The LLM is fine-tuned to output structured JSON formatted for MavLink. It deterministically
+                            maps natural language intent (e.g., "Scan that red car") to precise geodetic coordinates and
+                            gimbal vectors.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inference Engine -->
+            <section id="inference" style="margin-bottom: 100px;">
+                <h2 class="section-title">Inference Engine</h2>
+
+                <div
+                    style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 40px; margin-bottom: 40px;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+                        <div>
+                            <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">
+                                TensorRT Optimization</h4>
+                            <p class="card-text">
+                                We utilize NVIDIA's TensorRT-LLM library to compile the Llama-3 model into an optimized
+                                engine plan. This enables kernel fusion and efficient KV-cache management, essential for
+                                sustained throughput on the Orin Nano.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">
+                                Quantization Strategy</h4>
+                            <p class="card-text">
+                                Implementation of Activation-aware Weight Quantization (AWQ) reduces the 16-bit model
+                                weights to 4-bit integers. This 4x reduction in memory bandwidth pressure allows the 8GB
+                                VRAM limit to accommodate the entire model context.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benchmarks -->
+            <section id="benchmarks" style="margin-bottom: 100px;">
+                <h2 class="section-title">Benchmark Matrix</h2>
+
+                <div class="doc-card full-width">
+                    <div
+                        style="display: flex; gap: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 24px; margin-bottom: 24px; align-items: center;">
+                        <div
+                            style="font-family: var(--font-mono); color: var(--white); width: 140px; font-weight: 700;">
+                            Throughput</div>
+                        <div style="flex: 1;">
+                            <div
+                                style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="width: 85%; height: 100%; background: #3B82F6;"></div>
+                            </div>
+                        </div>
+                        <div style="font-family: var(--font-mono); color: #3B82F6; margin-left: 20px;">45 tok/s</div>
+                    </div>
+
+                    <div
+                        style="display: flex; gap: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 24px; margin-bottom: 24px; align-items: center;">
+                        <div
+                            style="font-family: var(--font-mono); color: var(--white); width: 140px; font-weight: 700;">
+                            TTFT</div>
+                        <div style="flex: 1;">
+                            <div
+                                style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="width: 25%; height: 100%; background: #10B981;"></div>
+                            </div>
+                        </div>
+                        <div style="font-family: var(--font-mono); color: #10B981; margin-left: 20px;">120 ms</div>
+                    </div>
+
+                    <div style="display: flex; gap: 24px; align-items: center;">
+                        <div
+                            style="font-family: var(--font-mono); color: var(--white); width: 140px; font-weight: 700;">
+                            Accuracy</div>
+                        <div style="flex: 1;">
+                            <div
+                                style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="width: 98%; height: 100%; background: #F59E0B;"></div>
+                            </div>
+                        </div>
+                        <div style="font-family: var(--font-mono); color: #F59E0B; margin-left: 20px;">98.4%</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dev Logs -->
+            <section id="devlog">
+                <h2 class="section-title">Development Logs</h2>
+                <div style="display: grid; gap: 16px;">
+                    <div class="doc-card" style="padding: 24px;">
+                        <div
+                            style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gray-500); margin-bottom: 8px;">
+                            2026-01-24 14:00</div>
+                        <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">Memory
+                            Optimization Pass</h4>
+                        <p style="font-size: 0.9rem; color: var(--gray-400);">
+                            Reduced KV-cache memory allocation by implementing paged attention blocks. This freed up
+                            1.2GB VRAM, allowing for larger system prompts.
+                        </p>
+                    </div>
+                    <div class="doc-card" style="padding: 24px;">
+                        <div
+                            style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gray-500); margin-bottom: 8px;">
+                            2026-01-20 09:30</div>
+                        <h4 style="font-family: var(--font-heading); color: var(--white); margin-bottom: 8px;">Whisper
+                            Integration</h4>
+                        <p style="font-size: 0.9rem; color: var(--gray-400);">
+                            Successfully integrated OpenAI Whisper-v3-turbo via C++ backend bindings. Transcription
+                            latency is now negligible (< 50ms). </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.docs-nav-item');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navItems.forEach(item => item.classList.remove('active'));
+                        const currentLink = document.querySelector(`.docs-nav-item[href="#${id}"]`);
+                        if (currentLink) currentLink.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+
+</html>
