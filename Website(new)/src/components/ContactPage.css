@@ -3,7 +3,7 @@
   z-index: 2;
   width: 100%;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   padding: 120px 20px 80px;
 }
 
@@ -22,14 +22,14 @@
   font-size: 3.5rem;
   font-weight: 800;
   letter-spacing: 0.15em;
-  color: #000000;
+  color: var(--card-text);
   text-transform: uppercase;
   margin: 0 0 20px 0;
 }
 
 .contact-subtitle {
   font-size: 1.2rem;
-  color: #666666;
+  color: var(--card-text-secondary);
   font-weight: 300;
   margin: 0;
   max-width: 600px;
@@ -59,12 +59,12 @@
 .contact-icon {
   width: 50px;
   height: 50px;
-  background-color: #000000;
+  background-color: var(--accent-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: var(--accent-text);
   flex-shrink: 0;
 }
 
@@ -75,7 +75,7 @@
 .contact-info-title {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #000000;
+  color: var(--card-text);
   margin: 0 0 10px 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -83,7 +83,7 @@
 
 .contact-info-text {
   font-size: 1rem;
-  color: #666666;
+  color: var(--card-text-secondary);
   line-height: 1.6;
   margin: 0;
   text-decoration: none;
@@ -92,14 +92,14 @@
 }
 
 .contact-info-text:hover {
-  color: #000000;
+  color: var(--card-text);
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 25px;
-  background-color: #f8f8f8;
+  background-color: var(--filter-bg);
   padding: 40px;
   border-radius: 12px;
 }
@@ -113,7 +113,7 @@
 .form-label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #000000;
+  color: var(--card-text);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -123,10 +123,10 @@
   width: 100%;
   padding: 15px;
   font-size: 1rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--card-border);
   border-radius: 8px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--input-bg);
+  color: var(--card-text);
   transition: all 0.3s ease;
   font-family: inherit;
 }
@@ -134,8 +134,8 @@
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #000000;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 .form-textarea {
@@ -144,9 +144,9 @@
 }
 
 .form-submit-button {
-  background-color: #000000;
-  color: #ffffff;
-  border: 2px solid #000000;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
+  border: 2px solid var(--accent-color);
   padding: 15px 40px;
   font-size: 1rem;
   font-weight: 600;
@@ -161,7 +161,7 @@
 
 .form-submit-button:hover {
   background-color: transparent;
-  color: #000000;
+  color: var(--card-text);
   transform: scale(1.05);
 }
 

@@ -131,8 +131,8 @@
 }
 
 .feature-item {
-  background: #ffffff;
-  color: #000000;
+  background: var(--card-bg);
+  color: var(--card-text);
   padding: 20px;
   border-radius: 8px;
   text-align: center;
@@ -140,7 +140,7 @@
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--card-border);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -160,8 +160,8 @@
 }
 
 .project-not-found button {
-  background: #ffffff;
-  color: #000000;
+  background: var(--accent-color);
+  color: var(--accent-text);
   border: none;
   padding: 15px 30px;
   font-size: 1rem;
@@ -173,7 +173,7 @@
 }
 
 .project-not-found button:hover {
-  background: #cccccc;
+  background: var(--card-text-secondary);
 }
 
 @media (max-width: 968px) {
@@ -457,7 +457,7 @@
   gap: 30px;
   align-items: center;
   justify-content: flex-start;
-  background: #fff;
+  background: var(--card-bg);
   padding: 30px;
   border-radius: 8px;
 }

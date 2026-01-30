@@ -144,7 +144,7 @@
 
 /* Color (revealed by spotlight mask) */
 .chroma-card--color {
-  background: #ffffff;
+  background: var(--card-bg);
   opacity: 1;
   filter: none;
   border-color: var(--card-border, rgba(255, 255, 255, 0.3));
@@ -206,12 +206,12 @@
 }
 
 .chroma-card--color .chroma-info {
-  color: #0b0b0b;
+  color: var(--card-text);
 }
 
 .chroma-card--color .chroma-info .role,
 .chroma-card--color .chroma-info .handle {
-  color: #5f5f5f;
+  color: var(--card-text-secondary);
   font-size: 0.8rem;
 }
 

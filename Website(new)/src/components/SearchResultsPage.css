@@ -3,7 +3,7 @@
   z-index: 2;
   width: 100%;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   padding: 100px 20px 80px;
 }
 
@@ -15,8 +15,8 @@
 
 .search-back-button {
   background: transparent;
-  border: 2px solid #000000;
-  color: #000000;
+  border: 2px solid var(--accent-color);
+  color: var(--card-text);
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: 600;
@@ -29,8 +29,8 @@
 }
 
 .search-back-button:hover {
-  background: #000000;
-  color: #ffffff;
+  background: var(--accent-color);
+  color: var(--accent-text);
   transform: scale(1.05);
 }
 
@@ -47,14 +47,14 @@
   font-size: 3.5rem;
   font-weight: 800;
   letter-spacing: 0.15em;
-  color: #000000;
+  color: var(--card-text);
   text-transform: uppercase;
   margin: 0 0 20px 0;
 }
 
 .search-query {
   font-size: 1.2rem;
-  color: #666666;
+  color: var(--card-text-secondary);
   font-weight: 300;
   margin: 0;
 }
@@ -65,7 +65,7 @@
   align-items: center;
   margin-bottom: 40px;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: var(--filter-bg);
   border-radius: 12px;
   flex-wrap: wrap;
   gap: 20px;
@@ -81,7 +81,7 @@
 .filter-group label,
 .sort-group label {
   font-weight: 600;
-  color: #000000;
+  color: var(--card-text);
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -94,9 +94,9 @@
 }
 
 .filter-btn {
-  background-color: #ffffff;
-  border: 2px solid #000000;
-  color: #000000;
+  background-color: var(--input-bg);
+  border: 2px solid var(--card-border);
+  color: var(--card-text);
   padding: 8px 20px;
   font-size: 0.85rem;
   font-weight: 600;
@@ -108,20 +108,20 @@
 }
 
 .filter-btn:hover {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
   transform: translateY(-2px);
 }
 
 .filter-btn.active {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
 }
 
 .sort-select {
-  background-color: #ffffff;
-  border: 2px solid #000000;
-  color: #000000;
+  background-color: var(--input-bg);
+  border: 2px solid var(--card-border);
+  color: var(--card-text);
   padding: 8px 20px;
   font-size: 0.85rem;
   font-weight: 600;
@@ -134,13 +134,13 @@
 }
 
 .sort-select:hover {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
 }
 
 .sort-select:focus {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
 }
 
 .search-empty-state {
@@ -151,13 +151,13 @@
 .search-empty-state h2 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #000000;
+  color: var(--card-text);
   margin-bottom: 20px;
 }
 
 .search-empty-state p {
   font-size: 1.2rem;
-  color: #666666;
+  color: var(--card-text-secondary);
   font-weight: 300;
 }
 
@@ -206,8 +206,8 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
   padding: 6px 16px;
   border-radius: 20px;
   font-size: 0.75rem;
