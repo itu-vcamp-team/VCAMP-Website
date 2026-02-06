@@ -5,7 +5,7 @@ import './TeamPage.css';
 
 const TeamPage = () => {
   const { language } = useLanguage();
-  
+
   const translations = {
     tr: {
       roles: {
@@ -50,9 +50,9 @@ const TeamPage = () => {
       }
     }
   };
-  
+
   const t = translations[language];
-  
+
   const teamMembers = [
     {
       image: `${process.env.PUBLIC_URL}/profile-photos/ProfilePhoto - Kerem.jpg`,
@@ -269,6 +269,15 @@ const TeamPage = () => {
       borderColor: "#A78BFA",
       gradient: "linear-gradient(120deg, #A78BFA, #000)",
       url: "https://www.linkedin.com/in/t%C3%BCrker-deniz-er-876b31313/"
+    },
+    {
+      image: `${process.env.PUBLIC_URL}/profile-photos/Yusuf Alper İlhan.jpg`,
+      title: "Yusuf Alper İlhan",
+      subtitle: "Yapay Zeka ve Yazılım Geliştirici",
+      handle: "yusufalperilhan7@gmail.com",
+      borderColor: "#38BDF8",
+      gradient: "linear-gradient(145deg, #38BDF8, #000)",
+      url: "https://www.linkedin.com/in/yusuf-alper-ilhan/"
     }
   ];
 
@@ -282,7 +291,7 @@ const TeamPage = () => {
     <section id="team" className="team-page">
       <div className="team-container">
         <div className="team-grid-wrapper">
-          <ChromaGrid 
+          <ChromaGrid
             items={translatedTeamMembers}
             radius={600}
             damping={0.45}

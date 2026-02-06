@@ -4,7 +4,7 @@ import './TeamSection.css';
 
 const TeamSection = () => {
   const { language } = useLanguage();
-  
+
   const translations = {
     tr: {
       ekibimiz: 'Ekibimiz',
@@ -53,7 +53,7 @@ const TeamSection = () => {
       }
     }
   };
-  
+
   const t = translations[language];
   const scrollContainerRef = useRef(null);
   const scrollSpeed = 1.5; // px per frame - daha hızlı
@@ -250,6 +250,14 @@ const TeamSection = () => {
       handle: "turkerkaan55@gmail.com",
       borderColor: "#A78BFA",
       url: "https://www.linkedin.com/in/t%C3%BCrker-deniz-er-876b31313/"
+    },
+    {
+      image: `${process.env.PUBLIC_URL}/profile-photos/Yusuf Alper İlhan.jpg`,
+      title: "Yusuf Alper İlhan",
+      subtitle: "Yapay Zeka ve Yazılım Geliştirici",
+      handle: "yusufalperilhan7@gmail.com",
+      borderColor: "#38BDF8",
+      url: "https://www.linkedin.com/in/yusuf-alper-ilhan/"
     }
   ];
 
@@ -267,15 +275,15 @@ const TeamSection = () => {
       if (container) {
         const delta = timestamp - lastTimestamp;
         lastTimestamp = timestamp;
-        
+
         container.scrollLeft += scrollSpeed * (delta / 16);
-        
+
         // Sonsuz döngü için scroll pozisyonunu kontrol et
         if (container.scrollLeft >= container.scrollWidth / 2) {
           container.scrollLeft = 0;
         }
       }
-      
+
       animationFrameId = requestAnimationFrame(animate);
     };
 
@@ -296,37 +304,58 @@ const TeamSection = () => {
           <a href="/team" className="discover-button">
             <span>{t.kesfedin}</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+              <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
         </div>
-        <div 
+        <div
           className="team-section-strip"
           ref={scrollContainerRef}
         >
           <div className="team-cards-container">
             {duplicatedMembers.map((member, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="team-card-simple"
-                style={{ '--card-border': member.borderColor }}
               >
+                {/* Profile image */}
                 <div className="team-card-image-wrapper">
-                  <img src={member.image} alt={member.title} />
+                  <div className="team-card-image-circle">
+                    <img src={member.image} alt={member.title} />
+                  </div>
                 </div>
+
+                {/* Info section */}
                 <div className="team-card-info">
                   <h3 className="team-card-name">{member.title}</h3>
                   <p className="team-card-role">{t.roles[member.subtitle] || member.subtitle}</p>
+                </div>
+
+                {/* Social icons */}
+                <div className="team-card-contacts">
+                  <a
+                    href={`mailto:${member.handle}`}
+                    className="team-card-contact-link"
+                    title="E-posta"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                    <span>{member.handle}</span>
+                  </a>
                   {member.url && (
-                    <a 
-                      href={member.url} 
-                      target="_blank" 
+                    <a
+                      href={member.url}
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="team-card-link"
+                      className="team-card-contact-link linkedin"
+                      title="LinkedIn"
                     >
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                       </svg>
+                      <span>{member.title}</span>
                     </a>
                   )}
                 </div>
