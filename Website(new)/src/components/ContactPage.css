@@ -95,6 +95,37 @@
   color: var(--card-text);
 }
 
+.contact-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.contact-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--card-text-secondary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: var(--filter-bg);
+}
+
+.contact-social-link:hover {
+  color: var(--card-text);
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.contact-social-link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
