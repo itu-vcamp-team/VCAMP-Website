@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITU Vcamp – TEKNOFEST 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0B1A3E;
+    --red:  #E8282A;
+    --gold: #F5A623;
+    --cyan: #00D4FF;
+    --white: #F0F4FF;
+    --card-bg: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.10);
+  }
+
+  body {
+    background: var(--navy);
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: 0;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── GLOW BLOBS ── */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.25;
+  }
+  .blob-1 { width: 600px; height: 600px; background: var(--cyan);  top: -200px; right: -150px; animation: drift 10s ease-in-out infinite alternate; }
+  .blob-2 { width: 500px; height: 500px; background: var(--red);   bottom: -100px; left: -100px; animation: drift 12s ease-in-out infinite alternate-reverse; }
+  .blob-3 { width: 300px; height: 300px; background: var(--gold);  top: 40%; left: 40%; animation: drift 8s ease-in-out infinite alternate; }
+  @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(40px, 30px) scale(1.1); } }
+
+  /* ── WRAPPER ── */
+  .wrapper {
+    position: relative; z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 28px 60px;
+  }
+
+  /* ── HEADER BADGE ── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,255,0.12);
+    border: 1px solid rgba(0,212,255,0.30);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.7); } }
+
+  /* ── HERO TITLE ── */
+  .hero { margin-bottom: 20px; animation: fadeUp 0.7s 0.1s ease both; }
+  .hero-org {
+    font-size: clamp(13px, 3vw, 16px);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(240,244,255,0.5);
+    margin-bottom: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .hero-title {
+    font-size: clamp(44px, 10vw, 84px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .hero-title .t { color: var(--white); }
+  .hero-title .accent { color: var(--red); }
+  .hero-title .year {
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(240,244,255,0.25);
+    display: block;
+  }
+  .hero-sub {
+    margin-top: 18px;
+    font-size: clamp(15px, 2.5vw, 19px);
+    font-weight: 400;
+    color: rgba(240,244,255,0.65);
+    line-height: 1.5;
+    max-width: 560px;
+  }
+  .hero-sub strong { color: var(--gold); font-weight: 700; }
+
+  /* ── ALERT BANNER ── */
+  .alert {
+    display: flex; align-items: center; gap: 14px;
+    background: linear-gradient(135deg, rgba(232,40,42,0.18), rgba(232,40,42,0.06));
+    border: 1px solid rgba(232,40,42,0.45);
+    border-left: 4px solid var(--red);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 28px 0;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .alert-icon { font-size: 24px; flex-shrink: 0; }
+  .alert-text { font-size: 14px; line-height: 1.5; }
+  .alert-text strong { color: #FF6B6B; font-size: 15px; display: block; margin-bottom: 2px; }
+
+  /* ── DEADLINES STRIP ── */
+  .deadlines {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin: 0 0 32px;
+    animation: fadeUp 0.7s 0.25s ease both;
+  }
+  .dl-chip {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(245,166,35,0.10);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .dl-chip .dl-date { font-family: 'IBM Plex Mono', monospace; color: var(--gold); font-weight: 600; }
+  .dl-chip .dl-label { color: rgba(240,244,255,0.6); }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,212,255,0.6);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,212,255,0.25), transparent); }
+
+  /* ── COMPETITION GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .card:hover { border-color: rgba(255,255,255,0.22); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .card:hover::before { opacity: 1; }
+
+  .card-emoji { font-size: 28px; margin-bottom: 10px; display: block; }
+  .card-name { font-size: 13.5px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; color: var(--white); }
+  .card-prize {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(0,212,255,0.10);
+    border: 1px solid rgba(0,212,255,0.18);
+    color: rgba(0,212,255,0.85);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── STEPS ── */
+  .steps {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .step {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .step-num {
+    width: 28px; height: 28px; flex-shrink: 0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--cyan), #0080CC);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700; font-size: 12px;
+    color: var(--navy);
+  }
+  .step-text { font-size: 12.5px; line-height: 1.45; color: rgba(240,244,255,0.75); }
+  .step-text strong { color: var(--white); display: block; margin-bottom: 2px; font-size: 13px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .footer-brand { font-size: 13px; font-weight: 700; color: rgba(240,244,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+  .footer-uni { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(240,244,255,0.28); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="wrapper">
+
+  <!-- Badge -->
+  <div class="badge">
+    <span class="badge-dot"></span>
+    ITU Vcamp · Duyuru
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-org">İstanbul Teknik Üniversitesi</div>
+    <h1 class="hero-title">
+      <span class="t">TEKNO</span><span class="accent">FEST</span>
+      <span class="year">2026</span>
+    </h1>
+    <p class="hero-sub">
+      Bu yıl <strong>10 yarışma kategorisinde</strong> yer alıyoruz.<br>
+      Yapay zekadan kuantuma, tasarımdan tarıma — seçim senin.
+    </p>
+  </div>
+
+  <!-- Alert -->
+  <div class="alert">
+    <span class="alert-icon">⚠️</span>
+    <div class="alert-text">
+      <strong>Zorunlu Katılım</strong>
+      Tüm Vcamp üyeleri en az 1 yarışmaya katılmak zorundadır. Gruba dahil olarak takımını oluştur ve başvurunu tamamla.
+    </div>
+  </div>
+
+  <!-- Deadlines -->
+  <div class="deadlines">
+    <div class="dl-chip">
+      <span class="dl-date">20 Şub 2026</span>
+      <span class="dl-label">— 9 Yarışma Son Başvuru</span>
+    </div>
+    <div class="dl-chip">
+      <span class="dl-date">06 Nis 2026</span>
+      <span class="dl-label">— Kuantum Son Başvuru</span>
+    </div>
+    <div class="dl-chip">
+      <span class="dl-date">01 Haz 2026</span>
+      <span class="dl-label">— Mimari & Tasarım Son Başvuru</span>
+    </div>
+  </div>
+
+  <!-- Competitions -->
+  <div class="section-label">Yarışma Kategorileri</div>
+  <div class="grid">
+
+    <div class="card">
+      <span class="card-emoji">🔗</span>
+      <div class="card-name">Blokzincir</div>
+      <div class="card-prize">1. 200.000 ₺</div>
+      <div class="card-tags"><span class="tag">Web3</span><span class="tag">DLT</span><span class="tag">Kriptografi</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">✈️</span>
+      <div class="card-name">Havacılıkta Yapay Zeka</div>
+      <div class="card-prize">1. 250.000 ₺</div>
+      <div class="card-tags"><span class="tag">CV</span><span class="tag">Deep Learning</span><span class="tag">Python</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">🧬</span>
+      <div class="card-name">Sağlıkta Yapay Zeka</div>
+      <div class="card-prize">1. 180.000 ₺</div>
+      <div class="card-tags"><span class="tag">Biyoinformatik</span><span class="tag">Medikal Veri</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">💳</span>
+      <div class="card-name">FinTech</div>
+      <div class="card-prize">1. 150.000 ₺</div>
+      <div class="card-tags"><span class="tag">Finans</span><span class="tag">Siber Güvenlik</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">🚦</span>
+      <div class="card-name">5G & Akıllı Yol Güvenliği</div>
+      <div class="card-prize">1. 175.000 ₺</div>
+      <div class="card-tags"><span class="tag">5G</span><span class="tag">Edge AI</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">⚛️</span>
+      <div class="card-name">Kuantum Teknolojileri</div>
+      <div class="card-prize">1. 200.000 ₺</div>
+      <div class="card-tags"><span class="tag">Quantum</span><span class="tag">Donanım</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">🎗️</span>
+      <div class="card-name">Onkolojide 3T</div>
+      <div class="card-prize">1. 400.000 ₺</div>
+      <div class="card-tags"><span class="tag">Kanser</span><span class="tag">Erken Teşhis</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">🌱</span>
+      <div class="card-name">Tarım Teknolojileri</div>
+      <div class="card-prize">1. 100.000 ₺</div>
+      <div class="card-tags"><span class="tag">IoT</span><span class="tag">Otonom Sistem</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">⛏️</span>
+      <div class="card-name">Maden Teknolojileri</div>
+      <div class="card-prize">1. 18 Cumhuriyet Altını</div>
+      <div class="card-tags"><span class="tag">Mekanik</span><span class="tag">Endüstri</span></div>
+    </div>
+
+    <div class="card">
+      <span class="card-emoji">🎨</span>
+      <div class="card-name">Mimari & Görsel Tasarım</div>
+      <div class="card-prize">Her kategori 1. 180.000 ₺</div>
+      <div class="card-tags"><span class="tag">3D</span><span class="tag">Grafik</span><span class="tag">Tasarım</span></div>
+    </div>
+
+  </div>
+
+  <!-- Steps -->
+  <div class="section-label">Nasıl Katılırsın?</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-text"><strong>Yarışma Seç</strong>İlgini çeken en az 1 kategoriyi belirle</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-text"><strong>WP Grubuna Gir</strong>Her yarışmanın özel grubuna katıl</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-text"><strong>Takım Kur</strong>Grup üyeleriyle takımını oluştur</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-text"><strong>Başvur</strong>T3 KYS üzerinden resmi kayıt tamamlanır</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">Vcamp Proje Takımı</div>
+    <div class="footer-uni">İstanbul Teknik Üniversitesi — teknofest.org</div>
+  </div>
+
+</div>
+</body>
+</html>
