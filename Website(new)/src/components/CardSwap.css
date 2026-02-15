@@ -5,9 +5,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   perspective: 900px;
   overflow: visible;
+}
+
+.card-swap-container.mobile {
+  min-height: 600px;
+  padding: 20px 0 60px 0;
+  overflow: visible;
+  perspective: none;
 }
 
 .card {
@@ -15,20 +21,27 @@
   top: 50%;
   left: 50%;
   border-radius: 16px;
-  border: 2px solid var(--card-border);
-  background: var(--card-bg);
-  color: var(--card-text);
+  border: 2px solid var(--card-border, rgba(255, 255, 255, 0.1));
+  background: var(--card-bg, #1a1a1a);
+  color: var(--card-text, #fff);
   padding: 0;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4), 
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   cursor: pointer;
   overflow: hidden;
-  transition: box-shadow 0.3s ease;
+ transition: box-shadow 0.3s ease;
   pointer-events: auto;
-
-  transform-style: preserve-3d;
-  will-change: transform;
+  will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Desktop only gets 3D transforms */
+.card-swap-container:not(.mobile) .card {
+  transform-style: preserve-3d;
 }
 
 .card:hover {
@@ -62,11 +75,71 @@
   padding: 25px;
 }
 
+/* Mobile specific */
+.mobile .card {
+  width: 90% !important;
+  max-width: 500px !important;
+  height: auto !important;
+  top: 35% !important;
+  background: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.6),
+    0 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.mobile .card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 50%, 
+    rgba(0, 0, 0, 0.1) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.mobile-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+  padding: 10px;
+}
+
+.mobile-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--card-border, #555);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-dots .dot.active {
+  background: var(--card-text, #fff);
+  width: 30px;
+  border-radius: 5px;
+}
+
+.mobile-dots .dot:hover {
+  background: var(--card-text-secondary, #aaa);
+}
+
 @media (max-width: 768px) {
-  .card-swap-container {
-    transform: scale(0.8);
-  }
-  
   .card h3 {
     font-size: 1.4rem;
   }
@@ -76,7 +149,7 @@
   }
   
   .card img {
-    height: 180px;
+    height: 200px;
   }
   
   .card > div {
@@ -85,10 +158,14 @@
 }
 
 @media (max-width: 480px) {
-  .card-swap-container {
-    transform: scale(0.65);
+  .card-swap-container.mobile {
+    min-height: 500px;
   }
-  
+
+  .mobile .card {
+    width: 95% !important;
+  }
+
   .card h3 {
     font-size: 1.2rem;
   }
@@ -98,10 +175,17 @@
   }
   
   .card img {
-    height: 150px;
+    height: 180px;
   }
   
   .card > div {
     padding: 15px;
   }
+
+  .mobile-dots {
+    bottom: 10px;
+  }
+}
+.card {
+  transform: translateZ(0);
 }

@@ -1,18 +1,36 @@
-import React, { Children, cloneElement, forwardRef, isValidElement, useEffect, useMemo, useRef } from 'react';
+import React, {
+  Children,
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import gsap from 'gsap';
 import './CardSwap.css';
 
-export const Card = forwardRef(({ customClass, ...rest }, ref) => (
-  <div ref={ref} {...rest} className={`card ${customClass ?? ''} ${rest.className ?? ''}`.trim()} />
+gsap.ticker.lagSmoothing(0);
+
+const Card = forwardRef(({ customClass, ...rest }, ref) => (
+  <div
+    ref={ref}
+    {...rest}
+    className={`card ${customClass ?? ''} ${rest.className ?? ''}`.trim()}
+  />
 ));
 Card.displayName = 'Card';
 
-const makeSlot = (i, distX, distY, total) => ({
-  x: i * distX,
-  y: -i * distY,
-  z: -i * distX * 1.5,
+/* ---------- helpers ---------- */
+
+const makeSlot = (i, dx, dy, total) => ({
+  x: i * dx,
+  y: -i * dy,
+  z: -i * dx * 1.5,
   zIndex: total - i
 });
+
 const placeNow = (el, slot, skew) =>
   gsap.set(el, {
     x: slot.x,
@@ -26,75 +44,140 @@ const placeNow = (el, slot, skew) =>
     force3D: true
   });
 
+/* ---------- component ---------- */
+
 const CardSwap = ({
   width = 500,
   height = 400,
   cardDistance = 60,
   verticalDistance = 70,
-  delay = 5000,
-  pauseOnHover = false,
-  onCardClick,
   skewAmount = 6,
   easing = 'elastic',
   children
 }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  /* animation config */
   const config =
     easing === 'elastic'
       ? {
-          ease: 'elastic.out(0.6,0.9)',
-          durDrop: 2,
-          durMove: 2,
-          durReturn: 2,
-          promoteOverlap: 0.9,
+          ease: 'elastic.out(0.7,0.9)',
+          durDrop: 1.05,
+          durMove: 0.9,
+          durReturn: 0.9,
+          promoteOverlap: 0.85,
           returnDelay: 0.05
         }
       : {
-          ease: 'power1.inOut',
-          durDrop: 0.8,
-          durMove: 0.8,
-          durReturn: 0.8,
-          promoteOverlap: 0.45,
-          returnDelay: 0.2
+          ease: 'power2.out',
+          durDrop: 0.7,
+          durMove: 0.7,
+          durReturn: 0.7,
+          promoteOverlap: 0.5,
+          returnDelay: 0.1
         };
 
   const childArr = useMemo(() => Children.toArray(children), [children]);
   const refs = useMemo(
     () => childArr.map(() => React.createRef()),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [childArr.length]
   );
 
   const order = useRef(Array.from({ length: childArr.length }, (_, i) => i));
-
-  const tlRef = useRef(null);
-  const intervalRef = useRef();
   const container = useRef(null);
 
+  const isAnimating = useRef(false);
+  const activeTL = useRef(null);
+  const lastScrollTime = useRef(0);
+
+  /* mobile refs */
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchLocked = useRef(false);
+
+  const MIN_INTERVAL = 120; // ms
+  const TOUCH_THRESHOLD = 40; // px
+
+  /* Check if mobile */
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  /* DESKTOP - ORIGINAL CODE */
+  useEffect(() => {
+    if (isMobile) return;
+
     const total = refs.length;
-    refs.forEach((r, i) => placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount));
 
-    const swap = () => {
-      if (order.current.length < 2) return;
+    refs.forEach((r, i) =>
+      placeNow(
+        r.current,
+        makeSlot(i, cardDistance, verticalDistance, total),
+        skewAmount
+      )
+    );
 
-      const [front, ...rest] = order.current;
-      const elFront = refs[front].current;
-      const tl = gsap.timeline();
-      tlRef.current = tl;
+    const swap = direction => {
+      const now = performance.now();
+      if (now - lastScrollTime.current < MIN_INTERVAL) return;
+      lastScrollTime.current = now;
 
-      tl.to(elFront, {
-        y: '+=500',
+      if (order.current.length < 2 || isAnimating.current) return;
+
+      isAnimating.current = true;
+
+      let active, rest;
+
+      if (direction > 0) {
+        // önden → arkaya
+        [active, ...rest] = order.current;
+      } else {
+        // arkadan → öne
+        active = order.current[order.current.length - 1];
+        rest = order.current.slice(0, -1);
+      }
+
+      const elActive = refs[active].current;
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          order.current =
+            direction > 0 ? [...rest, active] : [active, ...rest];
+          isAnimating.current = false;
+        }
+      });
+
+      activeTL.current = tl;
+
+      /* drop */
+      tl.to(elActive, {
+        y: '+=450',
         duration: config.durDrop,
         ease: config.ease
       });
 
       tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
+
+      /* shift others */
       rest.forEach((idx, i) => {
-        const el = refs[idx].current;
-        const slot = makeSlot(i, cardDistance, verticalDistance, refs.length);
-        tl.set(el, { zIndex: slot.zIndex }, 'promote');
+        const slotIndex = direction > 0 ? i : i + 1;
+        const slot = makeSlot(
+          slotIndex,
+          cardDistance,
+          verticalDistance,
+          refs.length
+        );
+
+        tl.set(refs[idx].current, { zIndex: slot.zIndex }, 'promote');
         tl.to(
-          el,
+          refs[idx].current,
           {
             x: slot.x,
             y: slot.y,
@@ -102,21 +185,28 @@ const CardSwap = ({
             duration: config.durMove,
             ease: config.ease
           },
-          `promote+=${i * 0.15}`
+          `promote+=${i * 0.12}`
         );
       });
 
-      const backSlot = makeSlot(refs.length - 1, cardDistance, verticalDistance, refs.length);
+      /* return active */
+      const backSlot =
+        direction > 0
+          ? makeSlot(
+              refs.length - 1,
+              cardDistance,
+              verticalDistance,
+              refs.length
+            )
+          : makeSlot(0, cardDistance, verticalDistance, refs.length);
+
       tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
-      tl.call(
-        () => {
-          gsap.set(elFront, { zIndex: backSlot.zIndex });
-        },
-        undefined,
-        'return'
-      );
+      tl.call(() => {
+        gsap.set(elActive, { zIndex: backSlot.zIndex });
+      }, null, 'return');
+
       tl.to(
-        elFront,
+        elActive,
         {
           x: backSlot.x,
           y: backSlot.y,
@@ -126,56 +216,326 @@ const CardSwap = ({
         },
         'return'
       );
+    };
 
-      tl.call(() => {
-        order.current = [...rest, front];
+    /* ---------- desktop wheel ---------- */
+    const onWheel = e => {
+      e.preventDefault();
+      swap(e.deltaY > 0 ? 1 : -1);
+    };
+
+    /* ---------- mobile touch ---------- */
+    const onTouchStart = e => {
+      touchStartY.current = e.touches[0].clientY;
+      touchLocked.current = false;
+    };
+
+    const onTouchMove = e => {
+      if (touchLocked.current) return;
+
+      const currentY = e.touches[0].clientY;
+      const deltaY = touchStartY.current - currentY;
+
+      if (Math.abs(deltaY) < TOUCH_THRESHOLD) return;
+
+      touchLocked.current = true;
+      swap(deltaY > 0 ? 1 : -1);
+    };
+
+    const onTouchEnd = () => {
+      touchLocked.current = false;
+    };
+
+    const node = container.current;
+
+    node.addEventListener('wheel', onWheel, { passive: false });
+    node.addEventListener('touchstart', onTouchStart, { passive: true });
+    node.addEventListener('touchmove', onTouchMove, { passive: true });
+    node.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      node.removeEventListener('wheel', onWheel);
+      node.removeEventListener('touchstart', onTouchStart);
+      node.removeEventListener('touchmove', onTouchMove);
+      node.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [isMobile, cardDistance, verticalDistance, skewAmount, easing, refs.length, config]);
+
+  /* MOBILE - 3 CARD CAROUSEL */
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const updateMobileCards = () => {
+      refs.forEach((r, i) => {
+        const el = r.current;
+        if (!el) return;
+
+        const offset = i - currentIndex;
+
+        // Sonsuz döngü için wrap around
+        let normalizedOffset = offset;
+        if (offset > childArr.length / 2) {
+          normalizedOffset = offset - childArr.length;
+        } else if (offset < -childArr.length / 2) {
+          normalizedOffset = offset + childArr.length;
+        }
+
+        const absNormalizedOffset = Math.abs(normalizedOffset);
+
+        // Sadece görünür kartları güncelle (performans optimizasyonu)
+        if (absNormalizedOffset > 1) {
+          // Görünmeyen kartlar - sadece gizle
+          if (el.style.visibility !== 'hidden') {
+            el.style.visibility = 'hidden';
+            el.style.opacity = '0';
+          }
+        } else {
+          // Görünür kartlar
+          el.style.visibility = 'visible';
+          
+          if (normalizedOffset === 0) {
+            // Ortadaki ana kart
+            el.style.transform = 'translate(-50%, -50%) translate(0px, 0px) scale(1)';
+            el.style.opacity = '1';
+            el.style.zIndex = '10';
+          } else if (normalizedOffset === 1) {
+            // Sağdaki kart
+            el.style.transform = 'translate(-50%, -50%) translate(200px, 40px) scale(0.8)';
+            el.style.opacity = '0.4';
+            el.style.zIndex = '5';
+          } else if (normalizedOffset === -1) {
+            // Soldaki kart
+            el.style.transform = 'translate(-50%, -50%) translate(-200px, 40px) scale(0.8)';
+            el.style.opacity = '0.4';
+            el.style.zIndex = '5';
+          }
+        }
       });
     };
 
-    swap();
-    intervalRef.current = window.setInterval(swap, delay);
+    // İlk pozisyonlama (GSAP ile)
+    refs.forEach((r, i) => {
+      const el = r.current;
+      if (!el) return;
+      
+      gsap.set(el, {
+        position: 'absolute',
+        top: '35%',
+        left: '50%',
+        xPercent: -50,
+        yPercent: -50,
+        skewX:0,
+        skewY:0,
+        rotate:0
+      });
+    });
 
-    if (pauseOnHover) {
-      const node = container.current;
-      const pause = () => {
-        tlRef.current?.pause();
-        clearInterval(intervalRef.current);
-      };
-      const resume = () => {
-        tlRef.current?.play();
-        intervalRef.current = window.setInterval(swap, delay);
-      };
-      node.addEventListener('mouseenter', pause);
-      node.addEventListener('mouseleave', resume);
-      return () => {
-        node.removeEventListener('mouseenter', pause);
-        node.removeEventListener('mouseleave', resume);
-        clearInterval(intervalRef.current);
-      };
-    }
-    return () => clearInterval(intervalRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
+    updateMobileCards();
+
+    const swapMobile = (direction) => {
+      if (isAnimating.current) return;
+      
+      isAnimating.current = true;
+
+      const newIndex = (currentIndex + direction + childArr.length) % childArr.length;
+      const currentCard = refs[currentIndex].current;
+      const nextCard = refs[newIndex].current;
+
+      if (direction > 0) {
+        // Sağa kaydırma
+        
+        // Yeni sağdaki kartı belirle
+        const nextRightIndex = (newIndex + 1) % childArr.length;
+        const nextRightCard = refs[nextRightIndex].current;
+        
+        gsap.set(nextRightCard, { 
+          visibility: 'visible',
+          x: 280, 
+          y: 60, 
+          scale: 0.7, 
+          opacity: 0
+        });
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setCurrentIndex(newIndex);
+            isAnimating.current = false;
+          }
+        });
+
+        // Mevcut kart sola - HIZLI
+        tl.to(currentCard, {
+          x: -200,
+          y: 40,
+          scale: 0.8,
+          opacity: 0.4,
+          zIndex: 5,
+          duration: 0.35, // 0.45'den 0.35'e
+          ease: 'power2.out' // power3.out yerine power2.out (daha hızlı)
+        }, 0);
+
+        // Sağdaki kart ortaya - HIZLI
+        tl.to(nextCard, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          zIndex: 10,
+          duration: 0.35,
+          ease: 'power2.out'
+        }, 0);
+
+        // Yeni sağdaki kart - HIZLI
+        tl.to(nextRightCard, {
+          x: 200,
+          y: 40,
+          scale: 0.8,
+          opacity: 0.4,
+          zIndex: 5,
+          duration: 0.35,
+          ease: 'power2.out'
+        }, 0);
+
+        // Eski soldaki kart kaybolsun
+        const oldLeftIndex = (currentIndex - 1 + childArr.length) % childArr.length;
+        const oldLeftCard = refs[oldLeftIndex].current;
+        tl.to(oldLeftCard, {
+          opacity: 0,
+          duration: 0.2,
+          ease: 'power2.out',
+          onComplete: () => {
+            oldLeftCard.style.visibility = 'hidden';
+          }
+        }, 0);
+
+      } else {
+        // Sola kaydırma
+        
+        // Yeni soldaki kartı belirle
+        const nextLeftIndex = (newIndex - 1 + childArr.length) % childArr.length;
+        const nextLeftCard = refs[nextLeftIndex].current;
+        
+        gsap.set(nextLeftCard, { 
+          visibility: 'visible',
+          x: -280, 
+          y: 60, 
+          scale: 0.7, 
+          opacity: 0
+        });
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setCurrentIndex(newIndex);
+            isAnimating.current = false;
+          }
+        });
+
+        // Mevcut kart sağa - HIZLI
+        tl.to(currentCard, {
+          x: 200,
+          y: 40,
+          scale: 0.8,
+          opacity: 0.4,
+          zIndex: 5,
+          duration: 0.35,
+          ease: 'power2.out'
+        }, 0);
+
+        // Soldaki kart ortaya - HIZLI
+        tl.to(nextCard, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          zIndex: 10,
+          duration: 0.35,
+          ease: 'power2.out'
+        }, 0);
+
+        // Yeni soldaki kart - HIZLI
+        tl.to(nextLeftCard, {
+          x: -200,
+          y: 40,
+          scale: 0.8,
+          opacity: 0.4,
+          zIndex: 5,
+          duration: 0.35,
+          ease: 'power2.out'
+        }, 0);
+
+        // Eski sağdaki kart kaybolsun
+        const oldRightIndex = (currentIndex + 1) % childArr.length;
+        const oldRightCard = refs[oldRightIndex].current;
+        tl.to(oldRightCard, {
+          opacity: 0,
+          duration: 0.2,
+          ease: 'power2.out',
+          onComplete: () => {
+            oldRightCard.style.visibility = 'hidden';
+          }
+        }, 0);
+      }
+    };
+
+    const onTouchStart = e => {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+      touchLocked.current = false;
+    };
+
+    const onTouchMove = e => {
+      if (touchLocked.current) return;
+
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const deltaX = touchStartX.current - currentX;
+      const deltaY = Math.abs(touchStartY.current - currentY);
+
+      if (Math.abs(deltaX) < TOUCH_THRESHOLD) return;
+      if (deltaY > Math.abs(deltaX)) return;
+
+      e.preventDefault();
+      touchLocked.current = true;
+
+      swapMobile(deltaX > 0 ? 1 : -1);
+    };
+
+    const onTouchEnd = () => {
+      touchLocked.current = false;
+    };
+
+    const node = container.current;
+    node.addEventListener('touchstart', onTouchStart, { passive: true });
+    node.addEventListener('touchmove', onTouchMove, { passive: false });
+    node.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      node.removeEventListener('touchstart', onTouchStart);
+      node.removeEventListener('touchmove', onTouchMove);
+      node.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [isMobile, currentIndex, childArr.length, refs]);
 
   const rendered = childArr.map((child, i) =>
     isValidElement(child)
       ? cloneElement(child, {
           key: i,
           ref: refs[i],
-          style: { width, height, ...(child.props.style ?? {}) },
-          onClick: e => {
-            child.props.onClick?.(e);
-            onCardClick?.(i);
-          }
+          style: { width, height, ...(child.props.style ?? {}) }
         })
       : child
   );
 
   return (
-    <div ref={container} className="card-swap-container" style={{ width, height }}>
+    <div
+      ref={container}
+      className={`card-swap-container ${isMobile ? 'mobile' : ''}`}
+      style={{ width, height }}
+    >
       {rendered}
     </div>
   );
 };
 
+export { Card };
 export default CardSwap;
