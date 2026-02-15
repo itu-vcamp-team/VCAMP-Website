@@ -17,7 +17,7 @@ jobs:
         with:
           switches: -avz --delete --exclude='.git/'
           path: public/
-          remote_path: /home/vcampteam/vcampteam.itu.edu.tr/public_html/
+          remote_path: /itu/users/vcampteam/vcampteam.itu.edu.tr/public_html/
           remote_host: ${{ secrets.ITU_SSH_HOST }}
           remote_user: ${{ secrets.ITU_SSH_USERNAME }}
           remote_key: ${{ secrets.ITU_SSH_KEY }}
