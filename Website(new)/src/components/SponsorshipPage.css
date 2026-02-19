@@ -127,7 +127,7 @@
   padding-bottom: 25px;
 }
 
-.section-title::after {
+/* .section-title::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -136,7 +136,7 @@
   width: 100px;
   height: 4px;
   background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-}
+} */
 
 .section-description {
   font-size: 1.1rem;
