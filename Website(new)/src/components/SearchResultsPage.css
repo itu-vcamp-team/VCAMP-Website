@@ -25,7 +25,7 @@
   margin-bottom: 40px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  border-radius: 50px;
+  border-radius: 8px;
 }
 
 .search-back-button:hover {
@@ -102,7 +102,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 50px;
+  border-radius: 8px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -126,7 +126,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  border-radius: 50px;
+  border-radius: 8px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   outline: none;
@@ -293,7 +293,7 @@
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  border-radius: 50px;
+  border-radius: 8px;
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.3s ease;

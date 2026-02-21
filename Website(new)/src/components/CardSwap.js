@@ -53,8 +53,11 @@ const CardSwap = ({
   verticalDistance = 70,
   skewAmount = 6,
   easing = 'elastic',
+  autoPlay = true,
+  autoDelay = 3500,
   children
 }) => {
+
   const [isMobile, setIsMobile] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -90,8 +93,10 @@ const CardSwap = ({
   const isAnimating = useRef(false);
   const activeTL = useRef(null);
   const lastScrollTime = useRef(0);
+  const isPaused = useRef(false);
 
   /* mobile refs */
+  const swapMobileRef = useRef(null);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
   const touchLocked = useRef(false);
@@ -260,6 +265,27 @@ const CardSwap = ({
       node.removeEventListener('touchend', onTouchEnd);
     };
   }, [isMobile, cardDistance, verticalDistance, skewAmount, easing, refs.length, config]);
+
+/* ---------- AUTO PLAY ---------- */
+useEffect(() => {
+  if (!autoPlay || childArr.length < 2) return;
+
+  const interval = setInterval(() => {
+    if (isAnimating.current) return;
+    if (isPaused.current) return;
+
+    if (isMobile) {
+      swapMobileRef.current?.(1);
+    } else {
+      const event = new WheelEvent('wheel', { deltaY: 100 });
+      container.current.dispatchEvent(event);
+    }
+  }, autoDelay);
+
+  return () => clearInterval(interval);
+}, [autoPlay, autoDelay, isMobile, childArr.length]);
+
+
 
   /* MOBILE - 3 CARD CAROUSEL */
   useEffect(() => {
@@ -476,8 +502,12 @@ const CardSwap = ({
         }, 0);
       }
     };
+    swapMobileRef.current = swapMobile;
+
 
     const onTouchStart = e => {
+      isPaused.current = false;
+
       touchStartX.current = e.touches[0].clientX;
       touchStartY.current = e.touches[0].clientY;
       touchLocked.current = false;
@@ -501,6 +531,8 @@ const CardSwap = ({
     };
 
     const onTouchEnd = () => {
+      isPaused.current = false;
+
       touchLocked.current = false;
     };
 
@@ -527,14 +559,51 @@ const CardSwap = ({
   );
 
   return (
-    <div
-      ref={container}
-      className={`card-swap-container ${isMobile ? 'mobile' : ''}`}
-      style={{ width, height }}
+  <div
+  ref={container}
+  className={`card-swap-container ${isMobile ? 'mobile' : ''}`}
+  style={{ width, height }}
+  onMouseEnter={() => (isPaused.current = true)}
+  onMouseLeave={() => (isPaused.current = false)}
+  onTouchStart={() => (isPaused.current = true)}
+  onTouchEnd={() => (isPaused.current = false)}
+>
+
+    {rendered}
+
+    {/* Desktop Navigation — left/right edge of front card */}
+{!isMobile && (
+  <>
+    <button
+      className="edge-nav-btn edge-nav-prev"
+      style={{ top: '42%', left: `calc(50% - ${width/2}px - 12px)` }}
+      onClick={() => {
+        const event = new WheelEvent('wheel', { deltaY: -100 });
+        container.current.dispatchEvent(event);
+      }}
     >
-      {rendered}
-    </div>
-  );
+      <svg viewBox="0 0 24 24" width="18" height="18">
+        <polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </button>
+    <button
+      className="edge-nav-btn edge-nav-next"
+      style={{ top: '42%', right: `calc(50% - ${width/2}px - 12px)` }}
+      onClick={() => {
+        const event = new WheelEvent('wheel', { deltaY: 100 });
+        container.current.dispatchEvent(event);
+      }}
+    >
+      <svg viewBox="0 0 24 24" width="18" height="18">
+        <polyline points="9 18 15 12 9 6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </button>
+  </>
+)}
+
+  </div>
+);
+
 };
 
 export { Card };

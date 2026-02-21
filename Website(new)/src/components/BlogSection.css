@@ -56,7 +56,7 @@
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  border-radius: 50px;
+  border-radius: 8px;
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.3s ease;
@@ -169,7 +169,7 @@
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  border-radius: 50px;
+  border-radius: 8px;
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.3s ease;
